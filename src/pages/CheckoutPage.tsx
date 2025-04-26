@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 import { useOrders } from '@/contexts/OrderContext';
 import { useToast } from '@/hooks/use-toast';
+import { Input } from '@/components/ui/input';
 
 interface CheckoutForm {
   name: string;
@@ -105,133 +105,123 @@ const CheckoutPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-background">
+      <h1 className="text-3xl font-bold mb-8 text-black dark:text-white">Checkout</h1>
       
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Checkout Form */}
         <div className="flex-1">
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Contact Information */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-4">Contact Information</h2>
+            <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Contact Information</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Full Name
                   </label>
-                  <input
+                  <Input
                     type="text"
                     id="name"
                     name="name"
                     value={form.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Email Address
                   </label>
-                  <input
+                  <Input
                     type="email"
                     id="email"
                     name="email"
                     value={form.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Phone Number
                   </label>
-                  <input
+                  <Input
                     type="tel"
                     id="phone"
                     name="phone"
                     value={form.phone}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                   />
                 </div>
               </div>
             </div>
             
-            {/* Shipping Address */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-4">Shipping Address</h2>
+            <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Shipping Address</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="address.street" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="address.street" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Street Address
                   </label>
-                  <input
+                  <Input
                     type="text"
                     id="address.street"
                     name="address.street"
                     value={form.address.street}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                   />
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="address.city" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="address.city" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       City
                     </label>
-                    <input
+                    <Input
                       type="text"
                       id="address.city"
                       name="address.city"
                       value={form.address.city}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="address.state" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="address.state" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       State
                     </label>
-                    <input
+                    <Input
                       type="text"
                       id="address.state"
                       name="address.state"
                       value={form.address.state}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                     />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="address.zip" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="address.zip" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       ZIP / Postal Code
                     </label>
-                    <input
+                    <Input
                       type="text"
                       id="address.zip"
                       name="address.zip"
                       value={form.address.zip}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="address.country" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="address.country" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Country
                     </label>
                     <select
@@ -252,9 +242,8 @@ const CheckoutPage = () => {
               </div>
             </div>
             
-            {/* Payment Method */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-4">Payment Method</h2>
+            <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Payment Method</h2>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <input
@@ -285,14 +274,13 @@ const CheckoutPage = () => {
                 </div>
               </div>
               
-              {/* Credit Card Details (simplified for demo) */}
               {form.paymentMethod === 'credit-card' && (
                 <div className="mt-4 space-y-4 pt-4 border-t">
                   <div>
-                    <label htmlFor="card-number" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="card-number" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Card Number
                     </label>
-                    <input
+                    <Input
                       type="text"
                       id="card-number"
                       placeholder="1234 5678 9012 3456"
@@ -302,10 +290,10 @@ const CheckoutPage = () => {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="expiry" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="expiry" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Expiry Date
                       </label>
-                      <input
+                      <Input
                         type="text"
                         id="expiry"
                         placeholder="MM/YY"
@@ -314,10 +302,10 @@ const CheckoutPage = () => {
                     </div>
                     
                     <div>
-                      <label htmlFor="cvc" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="cvc" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         CVC
                       </label>
-                      <input
+                      <Input
                         type="text"
                         id="cvc"
                         placeholder="123"
@@ -329,7 +317,6 @@ const CheckoutPage = () => {
               )}
             </div>
             
-            {/* Submit Button (on mobile only) */}
             <div className="lg:hidden">
               <Button 
                 type="submit" 
@@ -342,7 +329,6 @@ const CheckoutPage = () => {
           </form>
         </div>
         
-        {/* Order Summary */}
         <div className="lg:w-80">
           <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
             <h2 className="text-lg font-bold mb-4">Order Summary</h2>
@@ -388,7 +374,6 @@ const CheckoutPage = () => {
               </div>
             </div>
             
-            {/* Submit Button (on desktop only) */}
             <div className="hidden lg:block">
               <Button 
                 type="submit" 
