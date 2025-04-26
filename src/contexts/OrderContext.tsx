@@ -21,7 +21,7 @@ export interface Order {
 
 interface OrderContextType {
   orders: Order[];
-  createOrder: (items: CartItem[], total: number, address: Order['address'], paymentMethod: string) => void;
+  createOrder: (items: CartItem[], total: number, address: Order['address'], paymentMethod: string) => Order;
   cancelOrder: (orderId: string) => void;
   deleteOrder: (orderId: string) => void;
 }
@@ -46,7 +46,7 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     total: number, 
     address: Order['address'], 
     paymentMethod: string
-  ) => {
+  ): Order => {
     const newOrder: Order = {
       id: Math.random().toString(36).substring(2, 11),
       items,
