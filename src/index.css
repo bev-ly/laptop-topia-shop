@@ -64,6 +64,20 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
   }
+
+  input, 
+  textarea, 
+  select {
+    @apply text-black dark:text-black; /* Force black text in both modes */
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  * {
+    @apply border-border transition-colors duration-200;
+  }
 }
 
 @layer base {

@@ -106,16 +106,16 @@ const CheckoutPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-background">
-      <h1 className="text-3xl font-bold mb-8 text-black dark:text-white">Checkout</h1>
+      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
       
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1">
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Contact Information</h2>
+              <h2 className="text-xl font-bold mb-4">Contact Information</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="name" className="block text-sm font-medium mb-1">
                     Full Name
                   </label>
                   <Input
@@ -129,7 +129,7 @@ const CheckoutPage = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium mb-1">
                     Email Address
                   </label>
                   <Input
@@ -143,7 +143,7 @@ const CheckoutPage = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="phone" className="block text-sm font-medium mb-1">
                     Phone Number
                   </label>
                   <Input
@@ -159,10 +159,10 @@ const CheckoutPage = () => {
             </div>
             
             <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Shipping Address</h2>
+              <h2 className="text-xl font-bold mb-4">Shipping Address</h2>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="address.street" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="address.street" className="block text-sm font-medium mb-1">
                     Street Address
                   </label>
                   <Input
@@ -177,7 +177,7 @@ const CheckoutPage = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="address.city" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label htmlFor="address.city" className="block text-sm font-medium mb-1">
                       City
                     </label>
                     <Input
@@ -191,7 +191,7 @@ const CheckoutPage = () => {
                   </div>
                   
                   <div>
-                    <label htmlFor="address.state" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label htmlFor="address.state" className="block text-sm font-medium mb-1">
                       State
                     </label>
                     <Input
@@ -207,7 +207,7 @@ const CheckoutPage = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="address.zip" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label htmlFor="address.zip" className="block text-sm font-medium mb-1">
                       ZIP / Postal Code
                     </label>
                     <Input
@@ -221,7 +221,7 @@ const CheckoutPage = () => {
                   </div>
                   
                   <div>
-                    <label htmlFor="address.country" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label htmlFor="address.country" className="block text-sm font-medium mb-1">
                       Country
                     </label>
                     <select
@@ -243,7 +243,7 @@ const CheckoutPage = () => {
             </div>
             
             <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Payment Method</h2>
+              <h2 className="text-xl font-bold mb-4">Payment Method</h2>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <input
@@ -277,7 +277,7 @@ const CheckoutPage = () => {
               {form.paymentMethod === 'credit-card' && (
                 <div className="mt-4 space-y-4 pt-4 border-t">
                   <div>
-                    <label htmlFor="card-number" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label htmlFor="card-number" className="block text-sm font-medium mb-1">
                       Card Number
                     </label>
                     <Input
@@ -290,7 +290,7 @@ const CheckoutPage = () => {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="expiry" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label htmlFor="expiry" className="block text-sm font-medium mb-1">
                         Expiry Date
                       </label>
                       <Input
@@ -302,7 +302,7 @@ const CheckoutPage = () => {
                     </div>
                     
                     <div>
-                      <label htmlFor="cvc" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label htmlFor="cvc" className="block text-sm font-medium mb-1">
                         CVC
                       </label>
                       <Input
