@@ -69,8 +69,8 @@ const CheckoutPage = () => {
     // Simulate processing payment
     setTimeout(() => {
       try {
-        // Create the order
-        const order = createOrder(
+        // Create the order - properly capture the returned order object
+        const newOrder = createOrder(
           cartItems,
           cartTotal * 1.1, // Total with tax
           form.address,
@@ -87,7 +87,7 @@ const CheckoutPage = () => {
         });
         
         // Redirect to confirmation page
-        navigate(`/order-confirmation/${order.id}`);
+        navigate(`/order-confirmation/${newOrder.id}`);
       } catch (error) {
         toast({
           title: "Error Processing Order",
