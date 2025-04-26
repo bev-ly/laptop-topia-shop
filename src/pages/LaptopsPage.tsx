@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductGrid from '@/components/ProductGrid';
@@ -9,6 +8,7 @@ const LaptopsPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const brandParam = queryParams.get('brand') || 'All';
+  const searchParam = queryParams.get('search') || '';
   
   const [selectedBrand, setSelectedBrand] = useState(brandParam);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 3000]);
@@ -17,6 +17,14 @@ const LaptopsPage = () => {
   // Apply filters when dependencies change
   useEffect(() => {
     let filtered = laptops;
+    
+    // Filter by search query
+    if (searchParam) {
+      filtered = filtered.filter(laptop =>
+        laptop.name.toLowerCase().includes(searchParam.toLowerCase()) ||
+        laptop.brand.toLowerCase().includes(searchParam.toLowerCase())
+      );
+    }
     
     // Filter by brand
     if (selectedBrand !== 'All') {
@@ -29,7 +37,7 @@ const LaptopsPage = () => {
     );
     
     setFilteredProducts(filtered);
-  }, [selectedBrand, priceRange]);
+  }, [selectedBrand, priceRange, searchParam]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -122,6 +130,26 @@ const LaptopsPage = () => {
             </div>
           </div>
           
+          {/* Search filter */}
+          <div className="mb-6">
+            <h3 className="font-medium text-sm text-gray-500 mb-2">Search</h3>
+            <input
+              type="text"
+              value={searchParam}
+              onChange={(e) => {
+                const value = e.target.value;
+                setPriceRange([0, 3000]);
+                setSelectedBrand('All');
+                setFilteredProducts(laptops.filter(laptop =>
+                  laptop.name.toLowerCase().includes(value.toLowerCase()) ||
+                  laptop.brand.toLowerCase().includes(value.toLowerCase())
+                ));
+              }}
+              className="w-full px-2 py-1 border rounded text-sm"
+              placeholder="Search by name or brand"
+            />
+          </div>
+          
           {/* Reset filters */}
           <Button 
             variant="outline" 
@@ -129,6 +157,7 @@ const LaptopsPage = () => {
             onClick={() => {
               setSelectedBrand('All');
               setPriceRange([0, 3000]);
+              setFilteredProducts(laptops);
             }}
           >
             Reset Filters

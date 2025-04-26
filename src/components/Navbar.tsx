@@ -1,9 +1,10 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
+import { ThemeToggle } from './ThemeToggle';
+import { SearchBar } from './SearchBar';
 
 const Navbar = () => {
   const { cartItems } = useCart();
@@ -14,40 +15,36 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-background border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold text-tech-blue">TechTopia</span>
+              <span className="text-2xl font-bold text-primary">TechTopia</span>
             </Link>
           </div>
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-tech-blue">
+            <SearchBar />
+            <Link to="/" className="text-foreground hover:text-primary">
               Home
             </Link>
-            <Link to="/laptops" className="text-gray-700 hover:text-tech-blue">
+            <Link to="/laptops" className="text-foreground hover:text-primary">
               All Laptops
-            </Link>
-            <Link to="/brands" className="text-gray-700 hover:text-tech-blue">
-              Brands
-            </Link>
-            <Link to="/deals" className="text-gray-700 hover:text-tech-blue">
-              Deals
             </Link>
           </div>
 
           {/* User controls */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/profile" className="text-gray-700 hover:text-tech-blue p-2 rounded-full hover:bg-gray-100">
+            <ThemeToggle />
+            <Link to="/profile" className="text-foreground hover:text-primary p-2 rounded-full hover:bg-accent">
               <User size={20} />
             </Link>
-            <Link to="/cart" className="text-gray-700 hover:text-tech-blue p-2 rounded-full hover:bg-gray-100 relative">
+            <Link to="/cart" className="text-foreground hover:text-primary p-2 rounded-full hover:bg-accent relative">
               <ShoppingCart size={20} />
               {cartItems.length > 0 && (
-                <span className="absolute top-0 right-0 bg-tech-blue text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs rounded-full w-4 h-4 flex items-center justify-center">
                   {cartItems.length}
                 </span>
               )}
