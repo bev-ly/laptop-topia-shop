@@ -67,8 +67,9 @@
 
   input, 
   textarea, 
-  select {
-    @apply text-black dark:text-black; /* Force black text in both modes */
+  select,
+  .dark-text-force {
+    @apply text-black dark:text-white; /* Force text visibility in both modes */
   }
 
   body {
