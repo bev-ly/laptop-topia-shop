@@ -1,10 +1,8 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
-import { ThemeToggle } from './ThemeToggle';
 import { SearchBar } from './SearchBar';
 
 const Navbar = () => {
@@ -38,7 +36,6 @@ const Navbar = () => {
           {/* User controls */}
           <div className="hidden md:flex items-center space-x-4">
             <SearchBar />
-            <ThemeToggle />
             <Link to="/profile" className="text-foreground hover:text-primary p-2 rounded-full hover:bg-accent">
               <User size={20} />
             </Link>
@@ -55,7 +52,6 @@ const Navbar = () => {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <SearchBar />
-            <ThemeToggle />
             <Link to="/cart" className="text-foreground hover:text-primary relative">
               <ShoppingCart size={20} />
               {cartItems.length > 0 && (
