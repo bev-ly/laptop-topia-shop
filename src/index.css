@@ -69,11 +69,11 @@
   textarea, 
   select,
   .dark-text-force {
-    @apply text-black dark:text-white; /* Force text visibility in both modes */
+    @apply text-black dark:text-white transition-colors duration-200;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-200;
   }
 
   * {

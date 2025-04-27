@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X } from 'lucide-react';
@@ -25,8 +26,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <SearchBar />
+          <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="text-foreground hover:text-primary">
               Home
             </Link>
@@ -37,6 +37,7 @@ const Navbar = () => {
 
           {/* User controls */}
           <div className="hidden md:flex items-center space-x-4">
+            <SearchBar />
             <ThemeToggle />
             <Link to="/profile" className="text-foreground hover:text-primary p-2 rounded-full hover:bg-accent">
               <User size={20} />
@@ -52,18 +53,20 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <Link to="/cart" className="text-gray-700 mr-4 relative">
+          <div className="md:hidden flex items-center space-x-2">
+            <SearchBar />
+            <ThemeToggle />
+            <Link to="/cart" className="text-foreground hover:text-primary relative">
               <ShoppingCart size={20} />
               {cartItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-tech-blue text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full w-4 h-4 flex items-center justify-center">
                   {cartItems.length}
                 </span>
               )}
             </Link>
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-tech-blue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-tech-blue"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary hover:bg-accent focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
             >
               <span className="sr-only">Open main menu</span>
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -72,41 +75,27 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu, show/hide based on menu state */}
+      {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="md:hidden bg-background border-t">
+          <div className="px-2 pt-2 pb-3 space-y-1">
             <Link
               to="/"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-blue hover:bg-gray-100"
+              className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary hover:bg-accent"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               to="/laptops"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-blue hover:bg-gray-100"
+              className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary hover:bg-accent"
               onClick={() => setIsMenuOpen(false)}
             >
               All Laptops
             </Link>
             <Link
-              to="/brands"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-blue hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Brands
-            </Link>
-            <Link
-              to="/deals"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-blue hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Deals
-            </Link>
-            <Link
               to="/profile"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-tech-blue hover:bg-gray-100"
+              className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary hover:bg-accent"
               onClick={() => setIsMenuOpen(false)}
             >
               My Profile

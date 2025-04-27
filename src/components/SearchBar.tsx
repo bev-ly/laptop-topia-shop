@@ -16,23 +16,21 @@ export function SearchBar() {
         laptop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         laptop.brand.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      
-      // Navigate to laptops page with search query
       navigate(`/laptops?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 
   return (
-    <form onSubmit={handleSearch} className="relative w-full max-w-sm">
+    <form onSubmit={handleSearch} className="relative w-64">
       <div className="relative">
         <Input
           type="search"
           placeholder="Search laptops..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10 w-full"
+          className="pl-10 w-full bg-background border-input"
         />
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
       </div>
     </form>
   );
