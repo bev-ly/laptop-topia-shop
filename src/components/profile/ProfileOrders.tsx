@@ -4,13 +4,17 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useOrders } from '@/contexts/OrderContext';
 import { useToast } from '@/hooks/use-toast';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Trash2 } from 'lucide-react';
 
 const ProfileOrders = () => {
-  const { orders, cancelOrder, deleteOrder } = useOrders();
+  const { orders, cancelOrder, deleteOrder, bulkDeleteOrders } = useOrders();
   const { toast } = useToast();
   
   // State for order filter
   const [filter, setFilter] = useState('all');
+  // State for selected orders (for bulk actions)
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   
   // Filter orders based on selected filter
   const filteredOrders = filter === 'all' 
@@ -36,13 +40,54 @@ const ProfileOrders = () => {
   const handleDeleteOrder = (orderId: string) => {
     if (window.confirm('Are you sure you want to delete this order from your history? This action cannot be undone.')) {
       deleteOrder(orderId);
+      // Remove from selected orders if it was selected
+      setSelectedOrders(prev => prev.filter(id => id !== orderId));
       toast({
         title: "Order Deleted",
         description: "Your order has been removed from your history.",
       });
     }
   };
-  
+
+  // Handle bulk delete for selected orders
+  const handleBulkDelete = () => {
+    if (selectedOrders.length === 0) {
+      toast({
+        title: "No Orders Selected",
+        description: "Please select orders to delete.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (window.confirm(`Are you sure you want to delete ${selectedOrders.length} selected order(s)? This action cannot be undone.`)) {
+      bulkDeleteOrders(selectedOrders);
+      setSelectedOrders([]);
+      toast({
+        title: "Orders Deleted",
+        description: `${selectedOrders.length} order(s) have been removed from your history.`,
+      });
+    }
+  };
+
+  // Toggle selection of a single order
+  const toggleOrderSelection = (orderId: string) => {
+    setSelectedOrders(prev => 
+      prev.includes(orderId)
+        ? prev.filter(id => id !== orderId)
+        : [...prev, orderId]
+    );
+  };
+
+  // Toggle selection of all filtered orders
+  const toggleAllOrders = () => {
+    if (selectedOrders.length === filteredOrders.length) {
+      setSelectedOrders([]);
+    } else {
+      setSelectedOrders(filteredOrders.map(order => order.id));
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow-sm p-6">
@@ -94,12 +139,43 @@ const ProfileOrders = () => {
           </Button>
         </div>
         
+        {/* Bulk Actions */}
+        {filteredOrders.length > 0 && (
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                checked={selectedOrders.length > 0 && selectedOrders.length === filteredOrders.length}
+                onCheckedChange={toggleAllOrders}
+                id="select-all"
+              />
+              <label htmlFor="select-all" className="text-sm font-medium">
+                Select All
+              </label>
+            </div>
+            
+            {selectedOrders.length > 0 && (
+              <Button 
+                variant="destructive" 
+                size="sm"
+                onClick={handleBulkDelete}
+                className="flex items-center space-x-1"
+              >
+                <Trash2 size={16} />
+                <span>Delete Selected ({selectedOrders.length})</span>
+              </Button>
+            )}
+          </div>
+        )}
+        
         {/* Orders Table */}
         {filteredOrders.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-4 py-3 w-10">
+                    {/* Table header checkbox column */}
+                  </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Order #
                   </th>
@@ -123,6 +199,12 @@ const ProfileOrders = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredOrders.map((order) => (
                   <tr key={order.id}>
+                    <td className="px-4 py-4">
+                      <Checkbox
+                        checked={selectedOrders.includes(order.id)}
+                        onCheckedChange={() => toggleOrderSelection(order.id)}
+                      />
+                    </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{order.id.substring(0, 8)}</div>
                     </td>
@@ -211,9 +293,10 @@ const ProfileOrders = () => {
               variant="destructive"
               onClick={() => {
                 if (window.confirm('Are you sure you want to delete all cancelled orders? This action cannot be undone.')) {
-                  orders
+                  bulkDeleteOrders(orders
                     .filter(order => order.status === 'cancelled')
-                    .forEach(order => deleteOrder(order.id));
+                    .map(order => order.id)
+                  );
                   
                   toast({
                     title: "Cancelled Orders Deleted",

@@ -24,6 +24,9 @@ interface OrderContextType {
   createOrder: (items: CartItem[], total: number, address: Order['address'], paymentMethod: string) => Order;
   cancelOrder: (orderId: string) => void;
   deleteOrder: (orderId: string) => void;
+  bulkDeleteOrders: (orderIds: string[]) => void;
+  getOrderById: (orderId: string) => Order | undefined;
+  updateOrderStatus: (orderId: string, status: Order['status']) => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -61,16 +64,31 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     return newOrder;
   };
 
-  // Cancel an order
-  const cancelOrder = (orderId: string) => {
+  // Get order by ID
+  const getOrderById = (orderId: string): Order | undefined => {
+    return orders.find(order => order.id === orderId);
+  };
+
+  // Update order status
+  const updateOrderStatus = (orderId: string, status: Order['status']) => {
     setOrders(prevOrders => prevOrders.map(order => 
-      order.id === orderId ? { ...order, status: 'cancelled' } : order
+      order.id === orderId ? { ...order, status } : order
     ));
   };
 
-  // Delete an order entirely
+  // Cancel an order
+  const cancelOrder = (orderId: string) => {
+    updateOrderStatus(orderId, 'cancelled');
+  };
+
+  // Delete a single order
   const deleteOrder = (orderId: string) => {
     setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
+  };
+
+  // Delete multiple orders (bulk delete)
+  const bulkDeleteOrders = (orderIds: string[]) => {
+    setOrders(prevOrders => prevOrders.filter(order => !orderIds.includes(order.id)));
   };
 
   return (
@@ -78,7 +96,10 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       orders,
       createOrder,
       cancelOrder,
-      deleteOrder
+      deleteOrder,
+      bulkDeleteOrders,
+      getOrderById,
+      updateOrderStatus
     }}>
       {children}
     </OrderContext.Provider>
