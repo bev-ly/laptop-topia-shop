@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 import { useOrders } from '@/contexts/OrderContext';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 
 interface CheckoutForm {
   name: string;
@@ -42,6 +50,23 @@ const CheckoutPage = () => {
     paymentMethod: 'credit-card'
   });
   
+  // Show/hide COD payment option based on selected country
+  const [showCOD, setShowCOD] = useState(false);
+  
+  useEffect(() => {
+    // Only show COD payment option for Philippines
+    setShowCOD(form.address.country === 'PHL');
+    
+    // If user switches from Philippines to another country and had COD selected,
+    // change to credit card payment method
+    if (form.address.country !== 'PHL' && form.paymentMethod === 'cod') {
+      setForm({
+        ...form,
+        paymentMethod: 'credit-card'
+      });
+    }
+  }, [form.address.country]);
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
@@ -60,6 +85,25 @@ const CheckoutPage = () => {
         [name]: value
       });
     }
+  };
+  
+  // Handle country change from the Select component
+  const handleCountryChange = (value: string) => {
+    setForm({
+      ...form,
+      address: {
+        ...form.address,
+        country: value
+      }
+    });
+  };
+  
+  // Handle payment method change
+  const handlePaymentMethodChange = (value: string) => {
+    setForm({
+      ...form,
+      paymentMethod: value
+    });
   };
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -224,19 +268,21 @@ const CheckoutPage = () => {
                     <label htmlFor="address.country" className="block text-sm font-medium mb-1">
                       Country
                     </label>
-                    <select
-                      id="address.country"
-                      name="address.country"
+                    <Select
                       value={form.address.country}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
+                      onValueChange={handleCountryChange}
                     >
-                      <option value="USA">United States</option>
-                      <option value="CAN">Canada</option>
-                      <option value="MEX">Mexico</option>
-                      <option value="GBR">United Kingdom</option>
-                    </select>
+                      <SelectTrigger className="w-full text-white">
+                        <SelectValue placeholder="Select a country" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-background text-white">
+                        <SelectItem value="USA">United States</SelectItem>
+                        <SelectItem value="CAN">Canada</SelectItem>
+                        <SelectItem value="MEX">Mexico</SelectItem>
+                        <SelectItem value="GBR">United Kingdom</SelectItem>
+                        <SelectItem value="PHL">Philippines</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>
@@ -245,76 +291,66 @@ const CheckoutPage = () => {
             <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6">
               <h2 className="text-xl font-bold mb-4">Payment Method</h2>
               <div className="space-y-4">
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="credit-card"
-                    name="paymentMethod"
-                    value="credit-card"
-                    checked={form.paymentMethod === 'credit-card'}
-                    onChange={handleInputChange}
-                    required
-                    className="mr-2 h-4 w-4 text-tech-blue focus:ring-tech-blue border-gray-300"
-                  />
-                  <label htmlFor="credit-card" className="text-gray-700">Credit Card</label>
-                </div>
+                <Select
+                  value={form.paymentMethod}
+                  onValueChange={handlePaymentMethodChange}
+                >
+                  <SelectTrigger className="w-full text-white">
+                    <SelectValue placeholder="Select payment method" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background text-white">
+                    <SelectItem value="credit-card">Credit Card</SelectItem>
+                    <SelectItem value="paypal">PayPal</SelectItem>
+                    {showCOD && <SelectItem value="cod">Cash On Delivery</SelectItem>}
+                  </SelectContent>
+                </Select>
                 
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="paypal"
-                    name="paymentMethod"
-                    value="paypal"
-                    checked={form.paymentMethod === 'paypal'}
-                    onChange={handleInputChange}
-                    required
-                    className="mr-2 h-4 w-4 text-tech-blue focus:ring-tech-blue border-gray-300"
-                  />
-                  <label htmlFor="paypal" className="text-gray-700">PayPal</label>
-                </div>
-              </div>
-              
-              {form.paymentMethod === 'credit-card' && (
-                <div className="mt-4 space-y-4 pt-4 border-t">
-                  <div>
-                    <label htmlFor="card-number" className="block text-sm font-medium mb-1">
-                      Card Number
-                    </label>
-                    <Input
-                      type="text"
-                      id="card-number"
-                      placeholder="1234 5678 9012 3456"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
-                    />
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
+                {form.paymentMethod === 'credit-card' && (
+                  <div className="mt-4 space-y-4 pt-4 border-t">
                     <div>
-                      <label htmlFor="expiry" className="block text-sm font-medium mb-1">
-                        Expiry Date
+                      <label htmlFor="card-number" className="block text-sm font-medium mb-1">
+                        Card Number
                       </label>
                       <Input
                         type="text"
-                        id="expiry"
-                        placeholder="MM/YY"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
+                        id="card-number"
+                        placeholder="1234 5678 9012 3456"
                       />
                     </div>
                     
-                    <div>
-                      <label htmlFor="cvc" className="block text-sm font-medium mb-1">
-                        CVC
-                      </label>
-                      <Input
-                        type="text"
-                        id="cvc"
-                        placeholder="123"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tech-blue focus:border-tech-blue"
-                      />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="expiry" className="block text-sm font-medium mb-1">
+                          Expiry Date
+                        </label>
+                        <Input
+                          type="text"
+                          id="expiry"
+                          placeholder="MM/YY"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="cvc" className="block text-sm font-medium mb-1">
+                          CVC
+                        </label>
+                        <Input
+                          type="text"
+                          id="cvc"
+                          placeholder="123"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+                
+                {form.paymentMethod === 'cod' && (
+                  <div className="mt-4 pt-4 border-t text-sm">
+                    <p>Cash on Delivery is available for orders shipping to the Philippines only.</p>
+                    <p className="mt-2">Payment will be collected at the time of delivery.</p>
+                  </div>
+                )}
+              </div>
             </div>
             
             <div className="lg:hidden">
