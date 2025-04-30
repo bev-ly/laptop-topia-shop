@@ -1,4 +1,3 @@
-
 import { Product } from "../contexts/CartContext";
 
 export const laptops: Product[] = [
@@ -6,7 +5,7 @@ export const laptops: Product[] = [
     id: 1,
     name: "MacBook Pro 14",
     brand: "Apple",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1999.99,
     specs: {
       processor: "Apple M2 Pro",
@@ -20,7 +19,7 @@ export const laptops: Product[] = [
     id: 2,
     name: "Dell XPS 15",
     brand: "Dell",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1799.99,
     specs: {
       processor: "Intel Core i7-12700H",
@@ -34,7 +33,7 @@ export const laptops: Product[] = [
     id: 3,
     name: "HP Spectre x360",
     brand: "HP",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1587614387466-0a72ca909e16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1499.99,
     specs: {
       processor: "Intel Core i7-1255U",
@@ -48,7 +47,7 @@ export const laptops: Product[] = [
     id: 4,
     name: "Lenovo ThinkPad X1 Carbon",
     brand: "Lenovo",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1599.99,
     specs: {
       processor: "Intel Core i7-1260P",
@@ -62,7 +61,7 @@ export const laptops: Product[] = [
     id: 5,
     name: "ASUS ROG Zephyrus G14",
     brand: "ASUS",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1699.99,
     specs: {
       processor: "AMD Ryzen 9 6900HS",
@@ -76,7 +75,7 @@ export const laptops: Product[] = [
     id: 6,
     name: "Microsoft Surface Laptop 5",
     brand: "Microsoft",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1625842268618-7fb5025c45f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1299.99,
     specs: {
       processor: "Intel Core i5-1235U",
@@ -90,7 +89,7 @@ export const laptops: Product[] = [
     id: 7,
     name: "Razer Blade 15",
     brand: "Razer",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1544731612-de7f96afe55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 2499.99,
     specs: {
       processor: "Intel Core i9-12900H",
@@ -104,7 +103,7 @@ export const laptops: Product[] = [
     id: 8,
     name: "Acer Swift 5",
     brand: "Acer",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1099.99,
     specs: {
       processor: "Intel Core i7-1260P",
@@ -118,7 +117,7 @@ export const laptops: Product[] = [
     id: 9,
     name: "Alienware m17 R5",
     brand: "Dell",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1600861194942-f883de0dfe96?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 2799.99,
     originalPrice: 2999.99,
     specs: {
@@ -133,7 +132,7 @@ export const laptops: Product[] = [
     id: 10,
     name: "LG Gram 17",
     brand: "LG",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1599.99,
     specs: {
       processor: "Intel Core i7-1260P",
@@ -147,7 +146,7 @@ export const laptops: Product[] = [
     id: 11,
     name: "MacBook Air M2",
     brand: "Apple",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1199.99,
     specs: {
       processor: "Apple M2",
@@ -161,7 +160,7 @@ export const laptops: Product[] = [
     id: 12,
     name: "Samsung Galaxy Book3 Pro",
     brand: "Samsung",
-    image: "/placeholder.svg",
+    image: "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     price: 1449.99,
     specs: {
       processor: "Intel Core i7-1360P",

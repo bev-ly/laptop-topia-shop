@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Image } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 
@@ -14,6 +14,8 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+  const [imageError, setImageError] = React.useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -29,11 +31,29 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card-hover bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
       <Link to={`/product/${product.id}`} className="block">
-        <div className="aspect-w-3 aspect-h-2 bg-gray-100 flex justify-center items-center">
+        <div className="aspect-w-3 aspect-h-2 bg-gray-100 flex justify-center items-center relative h-48">
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+              <div className="w-8 h-8 border-2 border-tech-blue border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
+          
+          {imageError && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-4">
+              <Image className="w-10 h-10 text-gray-400 mb-2" />
+              <p className="text-sm text-gray-500">Image not available</p>
+            </div>
+          )}
+          
           <img
             src={product.image}
             alt={product.name}
-            className="object-contain h-48 w-full py-4"
+            className={`object-contain w-full h-full py-4 transition-opacity duration-300 ${imageLoaded && !imageError ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setImageLoaded(true)}
+            onError={() => {
+              setImageError(true);
+              setImageLoaded(true);
+            }}
           />
         </div>
         
