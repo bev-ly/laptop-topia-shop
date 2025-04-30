@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X } from 'lucide-react';
@@ -17,20 +18,22 @@ const Navbar = () => {
     <nav className="bg-background border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold text-primary">TechTopia</span>
-            </Link>
-          </div>
+          <div className="flex items-center space-x-8">
+            <div className="flex-shrink-0 flex items-center">
+              <Link to="/" className="flex items-center">
+                <span className="text-2xl font-bold text-primary">TechTopia</span>
+              </Link>
+            </div>
 
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="text-foreground hover:text-primary">
-              Home
-            </Link>
-            <Link to="/laptops" className="text-foreground hover:text-primary">
-              All Laptops
-            </Link>
+            {/* Desktop menu - moved inside this container and adjusted spacing */}
+            <div className="hidden md:flex items-center space-x-6">
+              <Link to="/" className="text-foreground hover:text-primary">
+                Home
+              </Link>
+              <Link to="/laptops" className="text-foreground hover:text-primary">
+                All Laptops
+              </Link>
+            </div>
           </div>
 
           {/* User controls */}
