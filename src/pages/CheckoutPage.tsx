@@ -366,8 +366,8 @@ const CheckoutPage = () => {
         </div>
         
         <div className="lg:w-80">
-          <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
-            <h2 className="text-lg font-bold mb-4">Order Summary</h2>
+          <div className="bg-white dark:bg-card rounded-lg shadow-sm p-6 sticky top-4">
+            <h2 className="text-lg font-bold mb-4 text-black dark:text-white">Order Summary</h2>
             
             <div className="max-h-80 overflow-y-auto mb-4">
               {cartItems.map((item) => (
@@ -380,11 +380,11 @@ const CheckoutPage = () => {
                     />
                   </div>
                   <div className="flex-1 ml-4">
-                    <h4 className="text-sm font-medium">{item.product.name}</h4>
-                    <p className="text-xs text-gray-500">{item.product.brand}</p>
+                    <h4 className="text-sm font-medium text-black dark:text-white">{item.product.name}</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-300">{item.product.brand}</p>
                     <div className="flex justify-between mt-1">
-                      <span className="text-xs">{item.quantity} x ${item.product.price.toLocaleString()}</span>
-                      <span className="text-sm font-medium">${(item.quantity * item.product.price).toLocaleString()}</span>
+                      <span className="text-xs text-black dark:text-gray-200">{item.quantity} x ${item.product.price.toLocaleString()}</span>
+                      <span className="text-sm font-medium text-black dark:text-white">${(item.quantity * item.product.price).toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -393,20 +393,20 @@ const CheckoutPage = () => {
             
             <div className="space-y-2 mb-6">
               <div className="flex justify-between text-sm">
-                <span>Subtotal</span>
-                <span>${cartTotal.toLocaleString()}</span>
+                <span className="text-black dark:text-white">Subtotal</span>
+                <span className="text-black dark:text-white">${cartTotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>Shipping</span>
-                <span>Free</span>
+                <span className="text-black dark:text-white">Shipping</span>
+                <span className="text-black dark:text-white">Free</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>Tax (10%)</span>
-                <span>${(cartTotal * 0.1).toFixed(2)}</span>
+                <span className="text-black dark:text-white">Tax (10%)</span>
+                <span className="text-black dark:text-white">${(cartTotal * 0.1).toFixed(2)}</span>
               </div>
               <div className="border-t pt-2 mt-2 flex justify-between font-bold">
-                <span>Total</span>
-                <span>${(cartTotal * 1.1).toFixed(2)}</span>
+                <span className="text-black dark:text-white">Total</span>
+                <span className="text-black dark:text-white">${(cartTotal * 1.1).toFixed(2)}</span>
               </div>
             </div>
             
